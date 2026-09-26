@@ -25,6 +25,7 @@ On first run, the icon appears in the system tray (you may need to click the `^`
 
 - **Left-click** — deactivate blackout
 - **Right-click** — open the same tray menu
+- Cursor hides after 5 seconds idle over a blacked-out screen; move to show it again
 
 Monitor selection and activate state are saved under `%AppData%\BlackScreens\settings.json` and restored next launch. Only one instance runs at a time.
 
