@@ -17,6 +17,7 @@ On first run, the icon appears in the system tray (you may need to click the `^`
 - **Left-click** — toggle blackout on/off
 - **Right-click** — menu:
   - Check the monitors to black out (named like `DISPLAY2 (1920×1080)`; primary is labeled)
+  - **Run at startup** — launch with Windows (current user)
   - **Activate blackout** — show or hide overlays
   - **Exit** — quit the app
 
@@ -27,7 +28,7 @@ On first run, the icon appears in the system tray (you may need to click the `^`
 
 Monitor selection and activate state are saved under `%AppData%\BlackScreens\settings.json` and restored next launch. Only one instance runs at a time.
 
-To start with Windows, put a shortcut to `BlackScreens.exe` in your Startup folder (`Win+R` → `shell:startup`).
+Enable **Run at startup** from the tray menu after placing `BlackScreens.exe` wherever you want it to live — the shortcut path is taken from the running executable.
 
 ## Build from source
 

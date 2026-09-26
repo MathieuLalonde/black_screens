@@ -10,9 +10,11 @@ public sealed class TrayApplicationContext : ApplicationContext
     private readonly Dictionary<string, BlackoutOverlay> _overlays = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, ToolStripMenuItem> _monitorItems = new(StringComparer.OrdinalIgnoreCase);
     private ToolStripMenuItem? _activateItem;
+    private ToolStripMenuItem? _startupItem;
     private ContextMenuStrip? _menu;
     private Icon? _customIcon;
     private bool _suppressActivateEvent;
+    private bool _suppressStartupEvent;
 
     public TrayApplicationContext()
     {
@@ -60,6 +62,16 @@ public sealed class TrayApplicationContext : ApplicationContext
         }
 
         menu.Items.Add(new ToolStripSeparator());
+
+        _startupItem = new ToolStripMenuItem("Run at startup")
+        {
+            CheckOnClick = true,
+        };
+        _suppressStartupEvent = true;
+        _startupItem.Checked = StartupRegistration.IsEnabled();
+        _suppressStartupEvent = false;
+        _startupItem.CheckedChanged += OnStartupCheckedChanged;
+        menu.Items.Add(_startupItem);
 
         _activateItem = new ToolStripMenuItem("Activate blackout")
         {
@@ -122,6 +134,31 @@ public sealed class TrayApplicationContext : ApplicationContext
         }
 
         SetActive(_activateItem.Checked);
+    }
+
+    private void OnStartupCheckedChanged(object? sender, EventArgs e)
+    {
+        if (_suppressStartupEvent || _startupItem is null)
+        {
+            return;
+        }
+
+        try
+        {
+            StartupRegistration.SetEnabled(_startupItem.Checked);
+        }
+        catch (Exception ex)
+        {
+            _suppressStartupEvent = true;
+            _startupItem.Checked = StartupRegistration.IsEnabled();
+            _suppressStartupEvent = false;
+
+            MessageBox.Show(
+                $"Could not update startup setting:\n{ex.Message}",
+                "Black Screens",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+        }
     }
 
     private void ToggleActive() => SetActive(!_settings.IsActive);
