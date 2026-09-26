@@ -1,6 +1,14 @@
 # Black Screens
 
-System-tray app for Windows that blacks out selected monitors with solid overlays — without disabling displays, so your desktop layout (and fullscreen video) stays put.
+System-tray app for Windows that blacks out selected monitors with solid overlays without disabling displays, so your desktop layout (and fullscreen video) stays put.
+
+Useful when watching video on multi-monitor systems without being disturbed by other monitors.
+
+## Download
+
+Grab the latest self-contained `BlackScreens.exe` from [Releases](https://github.com/MathieuLalonde/black_screens/releases) — no .NET install required.
+
+(The binary is shipped via Releases rather than committed to git; GitHub rejects files over 100 MB, and the self-contained build is ~154 MB.)
 
 ## Requirements
 
@@ -19,6 +27,8 @@ Right-click the tray icon:
 - Check **Activate blackout** to show the overlays
 - Uncheck **Activate blackout** to clear them
 - **Exit** to quit
+
+Left-click the tray icon to toggle the blackout.
 
 Settings are saved under `%AppData%\BlackScreens\settings.json`.
 
